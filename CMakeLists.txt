@@ -13,6 +13,8 @@ target_link_libraries( async_echo_sample ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM
 add_executable(sync_echo  sync_echo.cpp)
 target_link_libraries( sync_echo ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM_LIBRARY}  )
 
+add_executable(tester tester.cpp)
+
 #set_target_properties(client PROPERTIES COMPILE_FLAGS "-lboost_system -lboost_thread")
 if(WIN32)
     target_link_libraries(async_echo_sample wsock32 ws2_32)

@@ -24,6 +24,7 @@ int main()
         acceptor.accept(sock);
         int bytes = read(sock, buffer(buff), boost::bind(read_complete,buff,_1,_2));
         std::string msg(buff, bytes);
+        std::cout << msg << std::endl;
         sock.write_some(buffer("ECHO: "+ msg));
         sock.close();
     }
