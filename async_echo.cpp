@@ -1,5 +1,7 @@
 #include "boost/asio.hpp"
 #include "boost/bind.hpp"
+#include <boost/enable_shared_from_this.hpp>
+#include <boost/core/noncopyable.hpp>
 using namespace boost::asio;
 
 class talk_to_client : public boost::enable_shared_from_this<talk_to_client>, boost::noncopyable

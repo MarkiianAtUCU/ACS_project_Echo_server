@@ -19,6 +19,8 @@ target_link_libraries( async_echo_sample ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM
 add_executable(sync_echo  sync_echo.cpp)
 target_link_libraries( sync_echo ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM_LIBRARY}  )
 
+add_executable(tester_num_of_connections tester_num_of_connections.cpp)
+
 #add_executable(async_echo  async_echo.cpp)
 #target_link_libraries( async_echo ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM_LIBRARY}  )
 
