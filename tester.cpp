@@ -58,13 +58,11 @@ int main() {
     while(to_us(get_current_time_fenced() - start_time) <= 1000000) {
         send(sock, data_to_send, strlen(data_to_send), 0);
         recv(sock, buffer, maxlen, 0);
-        printf("received: %s", buffer);
-        buffer[maxlen] = '\0';
+        memset(buffer, 0, maxlen);
         counter++;
     }
 
     printf("Handled: %d requests\n", counter);
-    printf("rec %s", buffer);
 
     close(sock);
     return 0;
