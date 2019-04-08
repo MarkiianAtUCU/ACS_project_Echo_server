@@ -19,11 +19,11 @@ target_link_libraries( async_echo_sample ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM
 add_executable(sync_echo  sync_echo.cpp)
 target_link_libraries( sync_echo ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM_LIBRARY}  )
 
-add_executable(async_echo  async_echo.cpp)
-target_link_libraries( async_echo ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM_LIBRARY}  )
+#add_executable(async_echo  async_echo.cpp)
+#target_link_libraries( async_echo ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM_LIBRARY}  )
 
-add_executable(coroutine_echo  coroutine_echo.cpp)
-target_link_libraries( coroutine_echo ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM_LIBRARY}  )
+#add_executable(coroutine_echo  coroutine_echo.cpp)
+#target_link_libraries( coroutine_echo ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM_LIBRARY}  )
 
 #set_target_properties(sync_echo PROPERTIES COMPILE_FLAGS  "-lboost_thread")
 if(WIN32)
