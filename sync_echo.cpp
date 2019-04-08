@@ -1,31 +1,56 @@
+#include <cstdlib>
 #include <iostream>
-#include "boost/asio.hpp"
-#include "boost/bind.hpp"
+#include <boost/bind.hpp>
+#include <boost/smart_ptr.hpp>
+#include <boost/asio.hpp>
+//#include <boost/thread.hpp>
 
-using namespace boost::asio;
+#include <thread>
 
-io_service service;
+using boost::asio::ip::tcp;
 
-size_t read_complete(char * buff, const std::error_code & err, size_t bytes)
-{
-    if ( err) return 0;
-    bool found = std::find(buff, buff + bytes, '\n') < buff + bytes;
-    // we read one-by-one until we get to enter, no buffering
-    return found ? 0 : 1;
+const int max_length = 1024;
+
+typedef boost::shared_ptr<tcp::socket> socket_ptr;
+
+void session(tcp::endpoint& ep) {
+        boost::asio::io_service ios;
+        for (;;) {
+        tcp::acceptor a(ios, ep);
+        socket_ptr sock(new tcp::socket(ios));
+        a.accept(*sock);
+
+        for (;;) {
+            char data[max_length];
+
+            boost::system::error_code error;
+            size_t length = sock->read_some(boost::asio::buffer(data), error);
+            if (error == boost::asio::error::eof)
+                break; // Connection closed cleanly by peer.
+            else if (error)
+                throw boost::system::system_error(error); // Some other error.
+
+            boost::asio::write(*sock, boost::asio::buffer(data, length));
+        }
+        std::cout << std::this_thread::get_id() << std::endl;
+    }
+
+
 }
 
 int main()
 {
-    ip::tcp::acceptor acceptor(service, ip::tcp::endpoint(ip::tcp::v4(),8001));
-    char buff[1024];
-    while ( true)
-    {
-        ip::tcp::socket sock(service);
-        acceptor.accept(sock);
-        int bytes = read(sock, buffer(buff), boost::bind(read_complete,buff,_1,_2));
-        std::string msg(buff, bytes);
-        std::cout << msg << std::endl;
-        sock.write_some(buffer("ECHO: "+ msg));
-        sock.close();
-    }
+
+    tcp::endpoint ep(tcp::v4(), 8001);
+
+    std::thread t1(session, std::ref(ep));
+    std::thread t2(session, std::ref(ep));
+    std::thread t3(session, std::ref(ep));
+    std::thread t4(session, std::ref(ep));
+
+    t1.join();
+    t2.join();
+    t3.join();
+    t4.join();
+    return 0;
 }

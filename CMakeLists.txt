@@ -3,9 +3,13 @@ project(ACS_project_Echo_server)
 
 set(CMAKE_CXX_STANDARD 14)
 
-find_package(Boost REQUIRED COMPONENTS system)
+set(Boost_USE_MULTI_THREADED ON)
+
+find_package(Boost REQUIRED COMPONENTS system thread)
+
 INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
 LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
+
 
 add_executable(tester tester.cpp)
 
@@ -21,7 +25,7 @@ target_link_libraries( async_echo ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM_LIBRAR
 add_executable(coroutine_echo  coroutine_echo.cpp)
 target_link_libraries( coroutine_echo ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM_LIBRARY}  )
 
-#set_target_properties(client PROPERTIES COMPILE_FLAGS "-lboost_system -lboost_thread")
+#set_target_properties(sync_echo PROPERTIES COMPILE_FLAGS  "-lboost_thread")
 if(WIN32)
     target_link_libraries(async_echo_sample wsock32 ws2_32)
     target_link_libraries(sync_echo wsock32 ws2_32)
