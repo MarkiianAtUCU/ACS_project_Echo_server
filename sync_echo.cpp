@@ -32,7 +32,7 @@ void session(tcp::endpoint& ep) {
 
             boost::asio::write(*sock, boost::asio::buffer(data, length));
         }
-        std::cout << std::this_thread::get_id() << std::endl;
+//        std::cout << std::this_thread::get_id() << std::endl;
     }
 
 
