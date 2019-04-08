@@ -3,7 +3,8 @@ project(ACS_project_Echo_server)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(Boost_USE_MULTI_THREADED ON)
+set (Boost_USE_STATIC_LIBS OFF)
+set (Boost_USE_MULTITHREAD ON)
 
 find_package(Boost REQUIRED COMPONENTS system thread)
 
@@ -19,6 +20,9 @@ target_link_libraries( async_echo_sample ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM
 add_executable(sync_echo  sync_echo.cpp)
 target_link_libraries( sync_echo ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM_LIBRARY}  )
 
+add_executable(sync_echo2 sync_echo2.cpp concurrentqueue.h )
+target_link_libraries( sync_echo2 ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM_LIBRARY}  )
+
 #add_executable(async_echo  async_echo.cpp)
 #target_link_libraries( async_echo ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM_LIBRARY}  )
 
@@ -29,6 +33,8 @@ target_link_libraries( sync_echo ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM_LIBRARY
 if(WIN32)
     target_link_libraries(async_echo_sample wsock32 ws2_32)
     target_link_libraries(sync_echo wsock32 ws2_32)
-    target_link_libraries(async_echo wsock32 ws2_32)
-    target_link_libraries(coroutine_echo wsock32 ws2_32)
+    target_link_libraries(sync_echo2 wsock32 ws2_32)
+
+    #    target_link_libraries(async_echo wsock32 ws2_32)
+#    target_link_libraries(coroutine_echo wsock32 ws2_32)
 endif()
