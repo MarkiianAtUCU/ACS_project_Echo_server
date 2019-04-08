@@ -20,7 +20,7 @@ target_link_libraries( async_echo_sample ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM
 add_executable(sync_echo  sync_echo.cpp)
 target_link_libraries( sync_echo ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM_LIBRARY}  )
 
-add_executable(sync_echo2 sync_echo2.cpp concurrentqueue.h )
+add_executable(sync_echo2 sync_echo2.cpp)
 target_link_libraries( sync_echo2 ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM_LIBRARY}  )
 
 #add_executable(async_echo  async_echo.cpp)
