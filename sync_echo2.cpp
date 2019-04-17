@@ -39,21 +39,24 @@ void session(boost::lockfree::queue<tcp::socket*, boost::lockfree::capacity<1024
 
 int main()
 {
-    boost::lockfree::queue<tcp::socket*, boost::lockfree::capacity<1024>> q;
-//    moodycamel::ConcurrentQueue<int> q;
+
     boost::asio::io_service ios;
+    boost::lockfree::queue<tcp::socket*, boost::lockfree::capacity<1024>> q;
 
     tcp::endpoint ep(tcp::v4(), 8001);
     tcp::acceptor a(ios, ep);
 
     std::thread t1(session, std::ref(q));
-//    std::thread t2(session, std::ref(q));
-//    std::thread t3(session, std::ref(q));
-//    std::thread t4(session, std::ref(q));
+    std::thread t2(session, std::ref(q));
+    std::thread t3(session, std::ref(q));
+    std::thread t4(session, std::ref(q));
+
     t1.detach();
-//    t2.detach();
-//    t3.detach();
-//    t4.detach();
+    t2.detach();
+    t3.detach();
+    t4.detach();
+
+    
 
     for (;;) {
         auto* s = new tcp::socket(ios);

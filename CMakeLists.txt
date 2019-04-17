@@ -23,6 +23,10 @@ target_link_libraries( sync_echo ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM_LIBRARY
 add_executable(sync_echo2 sync_echo2.cpp)
 target_link_libraries( sync_echo2 ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM_LIBRARY}  )
 
+add_executable(daytime daytime.cpp)
+target_link_libraries( daytime  ${Boost_LIBRARIES}  )
+
+
 #add_executable(async_echo  async_echo.cpp)
 #target_link_libraries( async_echo ${CMAKE_BOOST_LIBS_INIT} ${Boost_SYSTEM_LIBRARY}  )
 
@@ -34,6 +38,7 @@ if(WIN32)
     target_link_libraries(async_echo_sample wsock32 ws2_32)
     target_link_libraries(sync_echo wsock32 ws2_32)
     target_link_libraries(sync_echo2 wsock32 ws2_32)
+    target_link_libraries(daytime wsock32 ws2_32)
 
     #    target_link_libraries(async_echo wsock32 ws2_32)
 #    target_link_libraries(coroutine_echo wsock32 ws2_32)
